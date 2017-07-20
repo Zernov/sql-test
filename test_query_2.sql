@@ -2,10 +2,10 @@
 SELECT initial.ZONE, max_dates.ITEM, initial.SELLING_RETAIL, end_of_period.SELLING_RETAIL, (end_of_period.SELLING_RETAIL - initial.SELLING_RETAIL) FROM
   (SELECT initial_date.ITEM AS ITEM, initial_date.MAX_DATE AS INITIAL_MAX_DATE, end_of_period_date.MAX_DATE AS END_OF_PERIOD_MAX_DATE
   FROM (SELECT ITEM, MAX(ACTION_DATE) AS MAX_DATE FROM rpm_zone_future_retail
-  WHERE ZONE = 1 AND ACTION_DATE < '2011-06-02'
+  WHERE ZONE = 1 AND ACTION_DATE <= '2011-06-01'
   GROUP BY ITEM) as initial_date
   JOIN (SELECT ITEM, MAX(ACTION_DATE) AS MAX_DATE FROM rpm_zone_future_retail
-  WHERE ZONE = 1 AND ACTION_DATE < '2012-07-21'
+  WHERE ZONE = 1 AND ACTION_DATE <= '2012-07-20'
   GROUP BY ITEM) AS end_of_period_date
   ON initial_date.ITEM = end_of_period_date.ITEM) AS max_dates
 JOIN rpm_zone_future_retail AS initial
